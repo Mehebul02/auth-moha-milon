@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 
 const Header = () => {
@@ -24,7 +24,8 @@ const Header = () => {
               {navLinks}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl font-bold text-yellow-700">Auth Moha Milon</a>
+          <Link to='/'><a className="btn btn-ghost text-xl font-bold text-yellow-700">Auth Moha Milon</a>
+</Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu text-2xl  menu-horizontal p-43 space-x-5">
@@ -32,7 +33,7 @@ const Header = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn text-yellow-700 text-2xl">Login</a>
+         <Link to='/login'> <a className="btn text-yellow-700 text-2xl">Login</a></Link>
         </div>
       </div>
     );

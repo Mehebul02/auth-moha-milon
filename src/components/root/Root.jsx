@@ -4,7 +4,7 @@ import Header from '../header/Header';
 
 const Root = () => {
     return (
-        <div className='max-w-[1300px] mx-auto mt-4'>
+        <div >
             <Header/>
             <Outlet/>
         </div>
