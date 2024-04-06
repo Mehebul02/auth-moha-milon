@@ -1,7 +1,19 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../provider/Auth";
 
 
 const Header = () => {
+  const {user,logOut} =useContext(AuthContext)
+  const handleSingOut =()=>{
+    logOut()
+    .then( ()=> {
+       alert('logged successfully')
+    })
+    .catch(error =>{
+console.log(error)
+    })
+  }
     const navLinks =<>
     <NavLink to='/'  className={({ isActive }) =>
     isActive? "border-b-2  rounded-md border-red-600 font-bold text-yellow-600 " :  ""
@@ -12,6 +24,17 @@ const Header = () => {
     <NavLink to='/register' className={({ isActive }) =>
     isActive? "border-b-2  rounded-md border-red-600 font-bold text-yellow-600" :  ""
   }><li>Register</li></NavLink>
+    <NavLink to='/orders' className={({ isActive }) =>
+    isActive? "border-b-2  rounded-md border-red-600 font-bold text-yellow-600" :  ""
+  }><li>Orders</li></NavLink>
+  {user && <>
+    <NavLink to='/profile' className={({ isActive }) =>
+    isActive? "border-b-2  rounded-md border-red-600 font-bold text-yellow-600" :  ""
+  }><li>Profile</li></NavLink>
+  <NavLink to='/dashboard' className={({ isActive }) =>
+    isActive? "border-b-2  rounded-md border-red-600 font-bold text-yellow-600" :  ""
+  }><li>Dashboard</li></NavLink>
+  </>}
     </>
     return (
         <div className="navbar bg-base-100">
@@ -33,7 +56,14 @@ const Header = () => {
           </ul>
         </div>
         <div className="navbar-end">
-         <Link to='/login'> <a className="btn text-yellow-700 text-2xl">Login</a></Link>
+          {
+            user ? <>
+            <span>{user.email}</span>
+            <a onClick={handleSingOut} className="btn btn-sm text-yellow-700 text-xl">Sing Out</a>
+            </>:
+            <Link to='/login'><button className="btn btn-sm text-yellow-700 text-xl">Login</button></Link>
+          }
+    
         </div>
       </div>
     );

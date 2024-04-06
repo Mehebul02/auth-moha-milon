@@ -2,9 +2,10 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../provider/Auth";
 
-
+import { useNavigate } from "react-router-dom";
 const Login = () => {
-  const {singUser} = useContext(AuthContext)
+  const {singUser,singInWithGoogle} = useContext(AuthContext)
+  const navigate = useNavigate()
     const handleLogin =e =>{
         e.preventDefault()
         const email = e.target.email.value
@@ -13,11 +14,24 @@ const Login = () => {
         singUser(email,password)
         .then(result =>{
           console.log(result.user)
+          e.target.reset()
+          navigate('/orders')
+
         })
         .catch(error =>{
           console.error(error)
         })
 
+    }
+    // google 
+    const handleGoogleSing =()=>{
+      singInWithGoogle()
+      .then(result =>{
+        console.log(result.user)
+      })
+      .catch(error =>{
+        console.log(error)
+      })
     }
     return (
         <div className="hero min-h-screen bg-base-200  rounded-lg">
@@ -48,6 +62,7 @@ const Login = () => {
               </div>
               </form>
               <p>New here?please<Link to='/register'><button className="btn btn-link">Register</button></Link></p>
+           <p><button onClick={handleGoogleSing} className="btn btn-ghost text-xl">Google</button></p>
             </div>
           </div>
         </div>
